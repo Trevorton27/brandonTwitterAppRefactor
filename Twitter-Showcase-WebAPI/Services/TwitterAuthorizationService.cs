@@ -33,7 +33,7 @@ namespace Twitter_Showcase_WebAPI.Services
             var response = await client.PostAsync<AuthResult>(request);
 
             Console.WriteLine(response);
-            return response.access_token;
+            return response.Access_token;
         }
     }
 }

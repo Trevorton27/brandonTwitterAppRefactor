@@ -41,14 +41,14 @@ namespace Twitter_Showcase_WebAPI.Controllers
 
             UserDetails userDetails = await _userDetailsService.GetUserId(searchTerm, authToken);
 
-            if (userDetails.data == null)
+            if (userDetails.Data == null)
             {
                 return NotFound("User not found");
             }
 
-            var userTimeline = await _userTimelineService.GetUserTimeline(userDetails.data.id, authToken);
+            var userTimeline = await _userTimelineService.GetUserTimeline(userDetails.Data.Id, authToken);
 
-            if (userTimeline.data == null) 
+            if (userTimeline.Data == null) 
             {
                 return NotFound("User does not have any tweets");
             }

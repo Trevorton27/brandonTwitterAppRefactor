@@ -1,26 +1,27 @@
-import { useState } from "react";
-import TweetsList from "../TweetsList";
-import ErrorCard from "../ErrorCard";
-import axios from "axios";
-import { Container, Row, Col, Form } from "react-bootstrap";
+import { useState } from 'react';
+import TweetsList from '../TweetsList';
+import ErrorCard from '../ErrorCard';
+import axios from 'axios';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 
 const Search = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [tweets, setTweets] = useState([]);
-  const [searchChoice, setSearchChoice] = useState("Handle");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [userHandleBtnClass, setUserHandleBtnClass] = useState("active");
-  const [contentBtnClass, setContentBtnClass] = useState("");
+  const [searchChoice, setSearchChoice] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [userHandleBtnClass, setUserHandleBtnClass] = useState('active');
+  const [contentBtnClass, setContentBtnClass] = useState('');
 
   async function getTweets(e) {
     e.preventDefault();
 
-    if (searchChoice === "Handle") {
+    if (searchChoice === 'Handle') {
       await axios
         .get(`api/tweets/search/username?searchTerm=${searchTerm}`)
         .then((res) => {
-          setTweets(res.data);
-          setErrorMessage("");
+          console.log('tweet data: ', res.data);
+          setTweets(res);
+          setErrorMessage('');
         })
         .catch((err) => {
           if (err.response.status >= 400) {
@@ -31,8 +32,9 @@ const Search = () => {
       await axios
         .get(`api/tweets/search/content?searchTerm=${searchTerm}`)
         .then((res) => {
+          console.log('tweet data: ', res);
           setTweets(res.data);
-          setErrorMessage("");
+          setErrorMessage('');
         })
         .catch((err) => {
           if (err.response.status >= 400) {
@@ -40,55 +42,55 @@ const Search = () => {
           }
         });
     }
-    setSearchTerm("");
+    setSearchTerm('');
   }
 
   function toggleActiveStatus(e) {
     if (
-      e.target.textContent === "Handle" &&
-      !e.target.classList.contains("active")
+      e.target.textContent === 'Handle' &&
+      !e.target.classList.contains('active')
     ) {
-      setUserHandleBtnClass("active");
-      setContentBtnClass("");
+      setUserHandleBtnClass('active');
+      setContentBtnClass('');
     }
 
     if (
-      e.target.textContent === "Content" &&
-      !e.target.classList.contains("active")
+      e.target.textContent === 'Content' &&
+      !e.target.classList.contains('active')
     ) {
-      setUserHandleBtnClass("");
-      setContentBtnClass("active");
+      setUserHandleBtnClass('');
+      setContentBtnClass('active');
     }
   }
 
   return (
-    <Container className="search-container">
-      <h1 className="search-title">Search Tweets</h1>
-      <Container className="form-container">
+    <Container className='search-container'>
+      <h1 className='search-title'>Search Tweets</h1>
+      <Container className='form-container'>
         <Form>
           <Row>
-            <Col className="search-bar-col">
+            <Col className='search-bar-col'>
               <input
-                className="form-control search-bar"
-                type="text"
+                className='form-control search-bar'
+                type='text'
                 onChange={(e) => setSearchTerm(e.target.value)}
                 value={searchTerm}
-                placeholder="Search"
+                placeholder='Search'
               />
               <button
-                className="btn btn-primary form-control"
-                id="search-btn"
-                type="submit"
+                className='btn btn-primary form-control'
+                id='search-btn'
+                type='submit'
                 onClick={(e) => getTweets(e)}
                 disabled={!searchTerm}
               >
                 Search
               </button>
-              <div className="btn-group">
+              <div className='btn-group'>
                 <button
-                  type="button"
+                  type='button'
                   className={`btn btn-secondary search-selector ${userHandleBtnClass}`}
-                  id="username-btn"
+                  id='username-btn'
                   onClick={(e) => {
                     setSearchChoice(e.target.textContent);
                     toggleActiveStatus(e);
@@ -97,9 +99,9 @@ const Search = () => {
                   Handle
                 </button>
                 <button
-                  type="button"
+                  type='button'
                   className={`btn btn-secondary search-selector ${contentBtnClass}`}
-                  id="content-btn"
+                  id='content-btn'
                   onClick={(e) => {
                     setSearchChoice(e.target.textContent);
                     toggleActiveStatus(e);

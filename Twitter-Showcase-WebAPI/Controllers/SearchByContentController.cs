@@ -32,7 +32,7 @@ namespace Twitter_Showcase_WebAPI.Controllers
             
             var recentTweets = await _contentSearchService.GetTweetsByContent(searchTerm, authToken);
             
-            if (recentTweets.data == null)
+            if (recentTweets.Data == null)
             {
                 return NotFound("Content not found");
             }

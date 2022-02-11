@@ -2,13 +2,13 @@
 {
     public class UserDetails
     {
-        public Data data { get; set; }
+        public Data Data { get; set; }
     }
 
     public class Data
     {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string username { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Username { get; set; }
     }
 }

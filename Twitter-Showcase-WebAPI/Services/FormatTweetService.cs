@@ -10,7 +10,7 @@ namespace Twitter_Showcase_WebAPI.Services
 
         public List<TweetObject> GetTweets(UserTimeline timeline)
         {
-            List<TweetObject> tweets = timeline.data.Select(x =>
+            List<TweetObject> tweets = timeline.Data.Select(x =>
             {
                 UserData currentUser = this.GetCurrentUser(timeline, x);
 
@@ -19,7 +19,7 @@ namespace Twitter_Showcase_WebAPI.Services
 
                 this.SetVideoAndImageUrls(timeline, x, images, videos);
 
-                TweetObject tweet = new TweetObject(x.text, FormatDate(x.created_at), x.public_metrics.like_count, x.public_metrics.reply_count, x.public_metrics.retweet_count, currentUser.profile_image_url, currentUser.name, currentUser.username, images, videos);
+                TweetObject tweet = new TweetObject(x.Text, FormatDate(x.Created_at), x.Public_metrics.Like_count, x.Public_metrics.Reply_count, x.Public_metrics.Retweet_count, currentUser.Profile_image_url, currentUser.Name, currentUser.Username, images, videos);
                 return tweet;
             }).ToList();
 
@@ -28,36 +28,36 @@ namespace Twitter_Showcase_WebAPI.Services
 
         public UserData GetCurrentUser(UserTimeline timeline, TweetData currentTweet)
         {
-            UserData currentUser = timeline.includes.users.First(user => user.id == currentTweet.author_id);
+            UserData currentUser = timeline.Includes.Users.First(user => user.Id == currentTweet.Author_id);
             return currentUser;
         }
 
 
         public void SetVideoAndImageUrls(UserTimeline timeline, TweetData data, List<string> images, List<string> videos)
         {
-            if (data.attachments != null)
+            if (data.Attachments != null)
             {
-                if (data.attachments.poll_ids != null)
+                if (data.Attachments.Poll_ids != null)
                 {
-                    data.attachments.poll_ids = null;
+                    data.Attachments.Poll_ids = null;
                 }
 
-                if (data.attachments.media_keys != null)
+                if (data.Attachments.Media_keys != null)
                 {
-                    foreach (string key in data.attachments.media_keys)
+                    foreach (string key in data.Attachments.Media_keys)
                     {
-                        foreach (MediaData m in timeline.includes.media)
+                        foreach (MediaData m in timeline.Includes.Media)
                         {
-                            if (m.media_key == key)
+                            if (m.Media_key == key)
                             {
-                                if (m.type == "photo")
+                                if (m.Type == "photo")
                                 {
-                                    images.Add(m.url);
+                                    images.Add(m.Url);
                                 }
 
-                                if (m.type == "video")
+                                if (m.Type == "video")
                                 {
-                                    videos.Add(m.preview_image_url);
+                                    videos.Add(m.Preview_image_url);
                                 }
                             }
                         }

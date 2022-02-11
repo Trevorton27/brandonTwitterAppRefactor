@@ -2,7 +2,7 @@
 {
     public class AuthResult
     {
-        public string token_type { get; set; }
-        public string access_token { get; set; }
+        public string Token_type { get; set; }
+        public string Access_token { get; set; }
     }
 }

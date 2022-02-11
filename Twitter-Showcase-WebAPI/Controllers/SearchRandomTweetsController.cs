@@ -34,7 +34,7 @@ namespace Twitter_Showcase_WebAPI.Controllers
             
             UserDetails userDetails = await _userDetailsService.GetUserId(user, authToken);
             
-            var userTimeline = await _userTimelineService.GetUserTimeline(userDetails.data.id, authToken);
+            var userTimeline = await _userTimelineService.GetUserTimeline(userDetails.Data.Id, authToken);
 
             var randomTweets = _formatTweetService.GetRandomTweets(userTimeline);
 
